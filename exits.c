@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
-**_strncpy - function copies a string
-*@dest: the destination buffer to be copied to
+**_strncpy - function that copies a string
+*@dest: the destination string buffer to be copied to
 *@src: the source string
-*@n: the maximum number of characters to be copied
-*Return: returns the concatenated string
+*@n: the no. of characters to be copied
+*Return: returns concatenated string
 */
 char *_strncpy(char *dest, char *src, int n)
 {
@@ -18,7 +18,6 @@ char *_strncpy(char *dest, char *src, int n)
 		dest[i] = src[i];
 		i++;
 	}
-
 	if (i < n)
 	{
 		j = i;
@@ -32,11 +31,11 @@ char *_strncpy(char *dest, char *src, int n)
 }
 
 /**
-**_strncat - concatenates two strings with max byte limit
-*@dest: first string
-*@src: second string
-*@n: the max byte limit to be used
-*Return: the concatenated string
+**_strncat - function concatenates two strings
+*@dest: this is the first string
+*@src: this is the second string
+*@n: the no. of bytes to be maximally used
+*Return: returns concatenated string
 */
 char *_strncat(char *dest, char *src, int n)
 {
@@ -45,6 +44,7 @@ char *_strncat(char *dest, char *src, int n)
 
 	i = 0;
 	j = 0;
+
 	while (dest[i] != '\0')
 		i++;
 	while (src[j] != '\0' && j < n)
@@ -59,10 +59,10 @@ char *_strncat(char *dest, char *src, int n)
 }
 
 /**
-**_strchr - searches for a character in a string
-*@s: the string to be iterated
-*@c: the character to search for
-*Return: (s) a pointer to the memory area s
+**_strchr - function locates a character in a string
+*@s: the string to parse
+*@c: the char to look for
+*Return: pointer to the memory area for s
 */
 char *_strchr(char *s, char c)
 {

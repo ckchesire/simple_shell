@@ -2,40 +2,38 @@
 
 /**
 * _erratoi - function converts a string to an integer
-* @s: str to be converted
-* Return: 0 if no numbers in str, converted number if successful, otherwise
-* -1 on error
+* @s: the str to be converted
+* Return: '0' if no numbers in string, converted number otherwise
+* '-1' on error
 */
 int _erratoi(char *s)
 {
-	int sign = 1;
-	long result = 0;
+	int i = 0;
+	unsigned long int result = 0;
 
-	if (!s || *s == '\0')
-		return (-1);
-
-	if (*s == '+' || *s == '-')
-		sign = (*s++ == '+') ? 1 : -1;
-
-	while (*s)
-	{
-		if (*s < '0' || *s > '9')
-			return (-1);
-
-		result = result * 10 + (*s - '0');
-		if (result * sign > INT_MAX || result * sign < INT_MIN)
-			return (-1);
+	if (*s == '+')
 		s++;
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		if (s[i] >= '0' && s[i] <= '9')
+		{
+			result *= 10;
+			result += (s[i] - '0');
+			if (result > INT_MAX)
+				return (-1);
+		}
+		else
+			return (-1);
 	}
-	return ((int)(result * sign));
+	return (result);
 }
 
 /**
 * print_error - function prints an error message
-* @info: the parameter & return info struct
-* @estr: str containing specified error type
-* Return: 0 if no numbers in string, converted number otherwise
-* -1 on error
+* @info: countains parameter args & return info struct
+* @estr: string containing the specified error type
+* Return: '0' if no numbers in string, converted number otherwise
+* '-1' on error
 */
 void print_error(info_t *info, char *estr)
 {
@@ -49,11 +47,11 @@ void print_error(info_t *info, char *estr)
 }
 
 /**
-* print_d - function prints a decimal integer number to base 10
-* @input: the input
-* @fd: the file descriptor to write to
+* print_d - function to print out decimal (integer) number (base 10)
+* @input: the input value
+* @fd: the filede scriptor to write out to
 *
-* Return: number of charas printed
+* Return: number of chars printed out
 */
 int print_d(int input, int fd)
 {
@@ -87,17 +85,15 @@ int print_d(int input, int fd)
 }
 
 /**
-* convert_number - converter function, a clone of itoa
-* @num: number
-* @base: base
-* @flags: argument flags
+* convert_number - function converter, is a clone of itoa
+* @num: number input
+* @base: base to do conversison
+* @flags: argument flags passed
 *
-* Return: string
+* Return: string output
 */
 char *convert_number(long int num, int base, int flags)
 {
-	static const char lower_digits[] = "0123456789abcdef";
-	static const char upper_digits[] = "0123456789ABCDEF";
 	static char *array;
 	static char buffer[50];
 	char sign = 0;
@@ -109,7 +105,7 @@ char *convert_number(long int num, int base, int flags)
 		n = -num;
 		sign = '-';
 	}
-	array = (flags & CONVERT_LOWERCASE) ? lower_digits : upper_digits;
+	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
 	*ptr = '\0';
 	do {*--ptr = array[n % base];
@@ -121,23 +117,19 @@ char *convert_number(long int num, int base, int flags)
 }
 
 /**
-* remove_comments - function that replaces first instance of '#' with '\0'
+* remove_comments - function that replaces the first instance of '#' with '\0'
 * @buf: address of the string to be modified
 *
-* Return: Always 0;
+* Return: Always '0';
 */
 void remove_comments(char *buf)
 {
 	int i;
 
-	if (buf == NULL)
-		return;
 	for (i = 0; buf[i] != '\0'; i++)
-	{
 		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
 		{
 			buf[i] = '\0';
 			break;
 		}
-	}
 }
